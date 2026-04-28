@@ -1,0 +1,693 @@
+{% extends 'harmony/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  html { scroll-behavior:smooth; }
+
+  .luxury-overlay{
+    background:linear-gradient(
+      120deg,
+      rgba(8,15,30,.82) 0%,
+      rgba(8,15,30,.55) 35%,
+      rgba(8,15,30,.35) 100%
+    );
+  }
+
+  .glass{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.14);
+  }
+
+  .section-title{
+    font-size:3rem;
+    line-height:1.05;
+    font-weight:300;
+    color:#1d1d1d;
+    margin:0;
+  }
+
+  @media (min-width:768px){
+    .section-title{ font-size:3.75rem; }
+  }
+
+  .section-sub{
+    color:#b18b52;
+    letter-spacing:.45em;
+    text-transform:uppercase;
+    font-size:.75rem;
+    font-weight:700;
+  }
+
+  .card-hover{
+    transition:all .35s ease;
+  }
+
+  .card-hover:hover{
+    transform:translateY(-8px);
+    box-shadow:0 22px 50px rgba(0,0,0,.08);
+  }
+
+  .gold-line{
+    width:70px;
+    height:2px;
+    background:linear-gradient(90deg,#d4af37,#f8e7a1);
+  }
+
+  .btn-premium{
+    background:linear-gradient(135deg,#c9a646,#f4e0a2);
+    color:#111827;
+    font-weight:700;
+  }
+
+  .btn-premium:hover{
+    opacity:.92;
+  }
+
+  .dark-block{
+    background:#0b1120;
+  }
+
+  body, button, input, select, textarea {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  }
+
+  .font-display {
+    letter-spacing: -0.02em;
+  }
+
+</style>
+
+<!-- HERO -->
+<section 
+    x-data="{ loaded: false }" 
+    x-init="setTimeout(() => loaded = true, 100)"
+    class="relative min-h-screen text-white flex items-center overflow-hidden"
+>
+    <div class="absolute inset-0 z-0 transition-transform duration-[10000ms] ease-out scale-110"
+         :class="loaded ? 'scale-100' : 'scale-110'"
+         style="background-image:url('{% static 'Hero_harmony.png' %}'); background-size:cover; background-position:center;">
+    </div>
+
+    <div class="absolute inset-0 luxury-overlay z-0"></div>
+
+    <div class="container mx-auto px-6 relative z-10 pt-32 pb-20">
+        <div class="max-w-5xl transition-all duration-1000 transform"
+             :class="loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'">
+
+            <p class="uppercase tracking-[0.5em] text-[10px] md:text-xs text-gold-light font-semibold mb-4">
+                Exclusive Residences • Nyali, Mombasa
+            </p>
+
+            <h1 class="brand-font text-7xl md:text-9xl font-light leading-none tracking-tighter mb-4">
+                HARMONY
+            </h1>
+
+            <div class="w-20 h-px bg-gold mb-8"></div>
+
+            <h2 class="brand-font text-4xl md:text-6xl font-light leading-tight italic mb-8">
+                The Architecture <br class="hidden md:block"> of <span class="font-normal">Silence</span>
+            </h2>
+
+            <p class="text-base md:text-lg text-gray-300 max-w-xl leading-relaxed font-light mb-12">
+                Bespoke 2 & 3 bedroom ensuite residences with sweeping ocean views, 
+                crafted for those who demand elegance, serenity, and timeless value.
+            </p>
+
+            <div class="flex flex-wrap gap-6 mb-20">
+                <a href="#about" class="px-10 py-4 rounded-full btn-gold text-[10px] uppercase tracking-widest font-bold shadow-2xl transition-transform hover:scale-105">
+                    Discover Harmony
+                </a>
+
+                <a href="#residences"
+                   class="px-10 py-4 rounded-full border border-white/20 backdrop-blur-sm hover:bg-white/10 transition-all text-[10px] uppercase tracking-widest font-bold">
+                    View Residences
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 max-w-4xl border-t border-white/10 pt-12">
+                <div class="md:border-r border-white/10 md:pr-10">
+                    <p class="brand-font text-4xl font-light">{{ project.bedrooms }}</p>
+                    <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-2">Bedrooms</p>
+                </div>
+                <div class="md:border-r border-white/10 md:px-10">
+                    <p class="brand-font text-4xl font-light">{{ project.size_range }}</p>
+                    <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-2">Sq. Metres</p>
+                </div>
+                <div class="md:border-r border-white/10 md:px-10">
+                    <p class="brand-font text-4xl font-light">{{ project.ensuite }}</p>
+                    <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-2">Ensuite</p>
+                </div>
+                <div class="md:pl-10">
+                    <p class="brand-font text-4xl font-light">{{ project.progress }}%</p>
+                    <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-2">Completed</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- LOGO STRIP -->
+<section id="partners" class="py-8 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="flex items-center justify-center gap-8 flex-wrap">
+            <div class="w-36 h-16 flex items-center justify-center p-2 bg-white border border-gray-100 rounded-md shadow-sm">
+                <img src="{% static 'logos/partner_1.png' %}" alt="Partner 1" class="max-h-12 object-contain">
+            </div>
+            <div class="w-36 h-16 flex items-center justify-center p-2 bg-white border border-gray-100 rounded-md shadow-sm">
+                <img src="{% static 'logos/partner_2.png' %}" alt="Partner 2" class="max-h-12 object-contain">
+            </div>
+            <div class="w-36 h-16 flex items-center justify-center p-2 bg-white border border-gray-100 rounded-md shadow-sm">
+                <img src="{% static 'logos/partner_3.png' %}" alt="Partner 4" class="max-h-12 object-contain">
+            </div>
+            <div class="w-36 h-16 flex items-center justify-center p-2 bg-white border border-gray-100 rounded-md shadow-sm">
+                <img src="{% static 'logos/partner_4.png' %}" alt="Partner 5" class="max-h-12 object-contain">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-24 bg-white">
+  <div class="container mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+
+    <div>
+      <p class="section-sub">About the Project</p>
+      <h2 class="section-title mt-3">Where Coastal Prestige Meets Quiet Luxury</h2>
+      <div class="gold-line mt-6"></div>
+
+      <p class="mt-8 text-gray-600 leading-8 text-lg">
+        {{ project.about }}
+      </p>
+    </div>
+
+    <div class="rounded-3xl overflow-hidden shadow-2xl">
+      <img src="{% url 'harmony:hero_image' %}" class="w-full h-full object-cover">
+    </div>
+
+  </div>
+</section>
+
+<!-- RESIDENCES TABS SECTION -->
+<section id="residences" class="py-24 bg-[#FAF9F6]" x-data="{ 
+    active: 'two',
+    units: {
+        'two': {
+            title: '2 Bedroom',
+            subtitle: 'ALL ENSUITE',
+            image: '{% static 'Hero_harmony.png' %}',
+            floorPlan: '{% static 'Harmony_2_bedroom_floor.png' %}',
+            beds: '2', baths: '2', sqm: '146 SQ.M.', sqft: '1,572 SQ.FT.',
+            features: [
+                'Open plan living & dining', 'Fully fitted kitchen with premium appliances',
+                'Master bedroom with walk-in wardrobe', 'Master ensuite bathroom',
+                'Second bedroom ensuite', 'Spacious patio with views',
+                'Large windows for natural light', 'Air-conditioning throughout'
+            ]
+        },
+        'three': {
+            title: '3 Bedroom',
+            subtitle: 'ALL ENSUITE + SQ',
+            image: '{% static 'Hero_harmony.png' %}',
+            floorPlan: '{% static 'Harmony_3_bedroom_floor.png' %}',
+            beds: '3', baths: '4', sqm: '235 SQ.M.', sqft: '2,530 SQ.FT.',
+            features: [
+                'Grand open plan living & dining', 'Fully fitted kitchen with premium appliances',
+                'Master bedroom with walk-in wardrobe', 'All bedrooms ensuite',
+                'Staff quarters included', 'Oversized entertainment patio',
+                'Multiple ocean-facing windows', 'Air-conditioning throughout'
+            ]
+        }
+    }
+}">
+    <div class="container mx-auto px-6">
+        
+        <div class="text-center mb-16">
+            <p class="uppercase tracking-[0.4em] text-[10px] text-gray-400 mb-4">The Residences</p>
+            <h2 class="brand-font text-5xl md:text-6xl font-light text-gray-900 leading-tight">
+                Elegant Living.<br>
+                <span class="italic">Thoughtful Space.</span>
+            </h2>
+            <div class="w-16 h-px bg-gold mx-auto mt-8"></div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+            
+            <div class="relative rounded-[2rem] overflow-hidden shadow-2xl group">
+                <img :src="units[active].image" class="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div class="absolute bottom-8 left-8 text-white">
+                    <p class="uppercase tracking-widest text-[10px] opacity-80 mb-2">Crafted for Modern Coastal Luxury</p>
+                    <h3 class="text-3xl font-light brand-font">Spacious Interiors with Natural Light</h3>
+                </div>
+            </div>
+
+            <div class="lg:pl-8">
+                <div class="flex gap-4 mb-10">
+                    <button @click="active = 'two'" 
+                        :class="active === 'two' ? 'bg-[#b18b52] text-white border-[#b18b52]' : 'bg-white text-gray-900 border-gray-200'"
+                        class="px-8 py-3 text-[11px] font-bold uppercase tracking-widest border transition-all duration-300 rounded-sm">
+                        2 Bedroom
+                    </button>
+                    <button @click="active = 'three'" 
+                        :class="active === 'three' ? 'bg-[#b18b52] text-white border-[#b18b52]' : 'bg-white text-gray-900 border-gray-200'"
+                        class="px-8 py-3 text-[11px] font-bold uppercase tracking-widest border transition-all duration-300 rounded-sm">
+                        3 Bedroom
+                    </button>
+                </div>
+
+                <div x-show="active" x-transition:enter="transition ease-out duration-300" class="space-y-8">
+                    <div>
+                        <h3 class="text-4xl font-light text-gray-900 mb-1" x-text="units[active].title"></h3>
+                        <p class="text-gold tracking-[0.2em] text-[11px] font-bold uppercase" x-text="units[active].subtitle"></p>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
+                            <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Bedrooms</p>
+                            <p class="text-xl font-medium" x-text="units[active].beds"></p>
+                        </div>
+                        <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
+                            <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Bathrooms</p>
+                            <p class="text-xl font-medium" x-text="units[active].baths"></p>
+                        </div>
+                        <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
+                            <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Size</p>
+                            <p class="text-sm font-medium" x-text="units[active].sqm"></p>
+                        </div>
+                        <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
+                            <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Size Ft</p>
+                            <p class="text-sm font-medium" x-text="units[active].sqft"></p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 pt-4">
+                        <template x-for="feature in units[active].features" :key="feature">
+                            <div class="flex items-center gap-3">
+                                <span class="text-gold text-sm">✓</span>
+                                <span class="text-gray-600 text-sm font-light" x-text="feature"></span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-20">
+            <div class="text-center mb-10">
+                <p class="uppercase tracking-[0.3em] text-[10px] text-gold font-bold mb-2">Floor Plans</p>
+                <h4 class="brand-font text-3xl font-light text-gray-900">Architectural Layout</h4>
+            </div>
+            
+            <div class="bg-white rounded-[2rem] p-8 md:p-16 border border-gray-100 shadow-sm overflow-hidden flex justify-center items-center">
+                <img :src="units[active].floorPlan" 
+                     x-transition:enter="transition ease-out duration-700 transform"
+                     x-transition:enter-start="opacity-0 translate-y-12 scale-95"
+                     x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                     :key="active"
+                     class="max-w-full h-auto object-contain max-h-[700px]">
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- AMENITIES -->
+<section id="amenities" class="py-24 bg-white overflow-hidden">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <div class="container mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16 xl:gap-24 items-start">
+            
+            <div class="relative rounded-[2.5rem] overflow-hidden min-h-[600px] lg:h-full lg:sticky lg:top-24 group shadow-2xl">
+                
+                <img src="{% static 'hero_harmony.png' %}" 
+                     alt="Infinity Pool at Sunset" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                
+                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(11,17,32,1)_0%,_rgba(11,17,32,0.6)_40%,_rgba(0,0,0,0.1)_90%)] transition-opacity duration-700 group-hover:opacity-90"></div>
+                
+                <div class="relative z-10 p-12 md:p-16 flex flex-col h-full text-white">
+                    <div class="mb-auto">
+                        <p class="uppercase tracking-[0.45em] text-[10px] text-gold-light font-bold mb-5 transition-transform duration-700 delay-100 group-hover:translate-y-[-4px]">
+                            Amenities & Lifestyle
+                        </p>
+                        
+                        <h2 class="brand-font text-6xl md:text-7xl font-light leading-[1.1] mb-10 transition-transform duration-700 delay-200 group-hover:translate-y-[-4px]">
+                            A World of <br> 
+                            <span class="italic font-extralight tracking-tight">Luxury</span>
+                        </h2>
+                        
+                        <div class="w-16 h-[2px] bg-gold mb-10 transition-all duration-1000 group-hover:w-24"></div>
+                        
+                        <p class="text-gray-300 group-hover:text-gray-100 transition-colors duration-500 font-light leading-[1.9] text-lg max-w-sm">
+                            Discover a world of luxury where every detail is designed for your comfort and convenience. 
+                            From stunning sea views to a fully equipped gym, <span class="text-white font-normal">Harmony</span> 
+                            offers an unmatched living experience.
+                        </p>
+                    </div>
+
+                    <div class="pt-10 border-t border-white/10 mt-10">
+                        <span class="text-[10px] uppercase tracking-widest text-gold-light">Ocean Panorama Nyali</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 pt-4 lg:pt-0">
+                {% for amenity in project.amenities.all %}
+                <div class="p-6 border border-gray-100 rounded-2xl bg-white hover:border-gold/30 hover:shadow-[0_20px_50px_rgba(177,139,82,0.08)] transition-all duration-500 group">
+                    <div class="flex flex-col h-full">
+                        <div class="mb-5 text-gray-900 transition-colors duration-500 group-hover:text-gold group-hover:-translate-y-1 transition-transform">
+                            {% if "Parking" in amenity.name %}
+                                <i class="ph-thin ph-car text-3xl stroke-1"></i>
+                            {% elif "Pool" in amenity.name %}
+                                <i class="ph-thin ph-waves text-3xl stroke-1"></i>
+                            {% elif "Gym" in amenity.name or "Fitness" in amenity.name %}
+                                <i class="ph-thin ph-barbell text-3xl stroke-1"></i>
+                            {% elif "Security" in amenity.name or "CCTV" in amenity.name or "Control" in amenity.name %}
+                                <i class="ph-thin ph-shield-check text-3xl stroke-1"></i>
+                            {% elif "Air" in amenity.name %}
+                                <i class="ph-thin ph-wind text-3xl stroke-1"></i>
+                            {% elif "Generator" in amenity.name or "Power" in amenity.name %}
+                                <i class="ph-thin ph-lightning text-3xl stroke-1"></i>
+                            {% elif "Borehole" in amenity.name or "Water" in amenity.name %}
+                                <i class="ph-thin ph-drop text-3xl stroke-1"></i>
+                            {% elif "Sea" in amenity.name or "Views" in amenity.name %}
+                                <i class="ph-thin ph-eye text-3xl stroke-1"></i>
+                            {% elif "Heat" in amenity.name %}
+                                <i class="ph-thin ph-thermometer-hot text-3xl stroke-1"></i>
+                            {% elif "Fire" in amenity.name %}
+                                <i class="ph-thin ph-fire-simple text-3xl stroke-1"></i>
+                            {% else %}
+                                <i class="ph-thin ph-sparkles text-3xl stroke-1"></i>
+                            {% endif %}
+                        </div>
+
+                        <h4 class="text-[15px] font-bold text-gray-950 tracking-tight mb-1.5">{{ amenity.name }}</h4>
+                        <p class="text-[11px] text-gray-500 font-light leading-snug uppercase tracking-wider group-hover:text-gray-700 transition-colors">
+                            {{ amenity.description }}
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- LOCATION -->
+<section id="location" class="py-32 bg-[#080c14] text-white overflow-hidden">
+  <div class="container mx-auto px-6">
+    
+    <div class="mb-20">
+      <p class="text-gold font-bold tracking-[0.5em] text-[10px] uppercase block mb-4">The Neighborhood</p>
+      <h2 class="brand-font text-5xl md:text-7xl font-light leading-tight">
+        Nyali’s <span class="italic text-gold">Golden Radius</span>
+      </h2>
+      <div class="w-16 h-px bg-gold/50 mt-8"></div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-12">
+      
+      <div class="space-y-4">
+        <h4 class="text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold mb-8">Daily Convenience</h4>
+        
+        <div class="group flex items-center justify-between p-5 rounded-xl bg-white/5 border border-gold/20 hover:bg-gold/10 transition-all">
+            <div class="flex items-center gap-4">
+                <i class="ph-thin ph-storefront text-2xl text-gold"></i>
+                <div>
+                    <p class="text-sm font-light">Danka Plaza</p>
+                    <p class="text-[9px] text-gray-500 uppercase tracking-tighter">200m Away</p>
+                </div>
+            </div>
+            <span class="text-[10px] font-bold text-gold">1 MIN</span>
+        </div>
+
+        <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all">
+            <div class="flex items-center gap-4 text-gray-300">
+                <i class="ph-thin ph-shopping-bag text-2xl text-gold"></i>
+                <span class="text-sm font-light">Carrefour</span>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500 uppercase">2 MINS</span>
+        </div>
+
+        <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
+            <div class="flex items-center gap-4 text-gray-300">
+                <i class="ph-thin ph-buildings text-2xl text-gold"></i>
+                <span class="text-sm font-light">Nyali Centre</span>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500 uppercase">3 MINS</span>
+        </div>
+
+        <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
+            <div class="flex items-center gap-4 text-gray-300">
+                <i class="ph-thin ph-basket text-2xl text-gold"></i>
+                <span class="text-sm font-light">City Mall / Quickmart</span>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500 uppercase">4 MINS</span>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <h4 class="text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold mb-8">Leisure & Recreation</h4>
+        
+        <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
+            <div class="flex items-center gap-4 text-gray-300">
+                <i class="ph-thin ph-umbrella text-2xl text-gold"></i>
+                <span class="text-sm font-light">Nyali Beach</span>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500 uppercase">2 MINS</span>
+        </div>
+
+        <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
+            <div class="flex items-center gap-4 text-gray-300">
+                <i class="ph-thin ph-drop text-2xl text-gold"></i>
+                <span class="text-sm font-light">Wild Waters</span>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500 uppercase">6 MINS</span>
+        </div>
+
+        <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
+            <div class="flex items-center gap-4 text-gray-300">
+                <i class="ph-thin ph-flag-banner text-2xl text-gold"></i>
+                <span class="text-sm font-light">Nyali Golf Club</span>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500 uppercase">8 MINS</span>
+        </div>
+
+        <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
+            <div class="flex items-center gap-4 text-gray-300">
+                <i class="ph-thin ph-popcorn text-2xl text-gold"></i>
+                <span class="text-sm font-light">Nyali Cinemax</span>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500 uppercase">12 MINS</span>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <h4 class="text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold mb-8">Health & Dining</h4>
+        
+        <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
+            <div class="flex items-center gap-4 text-gray-300">
+                <i class="ph-thin ph-first-aid text-2xl text-gold"></i>
+                <span class="text-sm font-light">Nyali Healthcare</span>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500 uppercase">1 MIN</span>
+        </div>
+
+        <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
+            <div class="flex items-center gap-4 text-gray-300">
+                <i class="ph-thin ph-cooking-pot text-2xl text-gold"></i>
+                <span class="text-sm font-light">Yuls Restaurant</span>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500 uppercase">14 MINS</span>
+        </div>
+
+        <div class="mt-8 p-8 rounded-2xl bg-gradient-to-br from-white/[0.05] to-transparent border border-white/10 relative overflow-hidden">
+            <i class="ph-thin ph-airplane-tilt absolute -bottom-4 -right-4 text-8xl text-white/[0.03]"></i>
+            <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-bold mb-4">Connectivity</p>
+            <h5 class="brand-font text-2xl font-light mb-1">Moi International</h5>
+            <p class="text-sm text-gray-500 mb-6 font-light">Global reach at your doorstep</p>
+            <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-300 font-light">16 km distance</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold">25 MINS</span>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="investment" class="py-32 bg-white">
+    <div class="container mx-auto px-6">
+        
+        <div class="text-center mb-24">
+            <p class="text-gold font-bold tracking-[0.5em] text-[10px] uppercase block mb-6">Investment Opportunity</p>
+            <h2 class="brand-font text-5xl md:text-6xl font-light text-gray-900 leading-tight">
+                Not Just a Home — <br> 
+                <span class="italic font-extralight tracking-tight text-gold">A Smart Investment</span>
+            </h2>
+            <div class="w-12 h-px bg-gold mx-auto mt-12"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <div class="p-10 border border-gray-100 rounded-sm text-center group hover:border-gold/30 hover:shadow-2xl transition-all duration-500">
+                <div class="w-14 h-14 rounded-full border border-gray-100 flex items-center justify-center mx-auto mb-8 group-hover:bg-gold group-hover:text-white transition-colors duration-500">
+                    <i class="ph-thin ph-trend-up text-2xl"></i>
+                </div>
+                <h4 class="brand-font text-2xl text-gray-900 mb-5">Capital Appreciation</h4>
+                <p class="text-gray-500 font-light leading-relaxed text-sm">
+                    Prime positioning in Nyali ensures attractive and steady capital growth on your investment.
+                </p>
+            </div>
+
+            <div class="p-10 border border-gray-100 rounded-sm text-center group hover:border-gold/30 hover:shadow-2xl transition-all duration-500">
+                <div class="w-14 h-14 rounded-full border border-gray-100 flex items-center justify-center mx-auto mb-8 group-hover:bg-gold group-hover:text-white transition-colors duration-500">
+                    <i class="ph-thin ph-house-line text-2xl"></i>
+                </div>
+                <h4 class="brand-font text-2xl text-gray-900 mb-5">High Rental Demand</h4>
+                <p class="text-gray-500 font-light leading-relaxed text-sm">
+                    Mombasa's premier location guarantees strong demand from long-term and corporate tenants.
+                </p>
+            </div>
+
+            <div class="p-10 border border-gray-100 rounded-sm text-center group hover:border-gold/30 hover:shadow-2xl transition-all duration-500">
+                <div class="w-14 h-14 rounded-full border border-gray-100 flex items-center justify-center mx-auto mb-8 group-hover:bg-gold group-hover:text-white transition-colors duration-500">
+                    <i class="ph-thin ph-calendar-check text-2xl"></i>
+                </div>
+                <h4 class="brand-font text-2xl text-gray-900 mb-5">Airbnb & Short-Term</h4>
+                <p class="text-gray-500 font-light leading-relaxed text-sm">
+                    Ideal for Airbnb and short-term holiday rentals, offering strong ROI potential year-round.
+                </p>
+            </div>
+
+            <div class="p-10 border border-gray-100 rounded-sm text-center group hover:border-gold/30 hover:shadow-2xl transition-all duration-500">
+                <div class="w-14 h-14 rounded-full border border-gray-100 flex items-center justify-center mx-auto mb-8 group-hover:bg-gold group-hover:text-white transition-colors duration-500">
+                    <i class="ph-thin ph-chart-line-up text-2xl"></i>
+                </div>
+                <h4 class="brand-font text-2xl text-gray-900 mb-5">Smart Investment</h4>
+                <p class="text-gray-500 font-light leading-relaxed text-sm">
+                    A combination of location, quality and amenities that positions Harmony as a premier asset class.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="cta" class="py-24 bg-[#FAF9F6]">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-gold font-bold tracking-[0.5em] text-[10px] uppercase mb-6">Ready to take the next step?</p>
+            <h2 class="brand-font text-4xl md:text-5xl font-light text-gray-900 mb-12 leading-tight">
+                Experience Harmony First-Hand. <br>
+                <span class="italic text-gray-500">Request your private brochure today.</span>
+            </h2>
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="#contact" class="px-12 py-4 bg-[#b18b52] text-white text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-gray-900 transition-all duration-500 rounded-sm">
+                    Schedule a Viewing
+                </a>
+                <a href="{% url 'harmony:enquire' %}" class="px-12 py-4 border border-gray-200 text-gray-900 text-[11px] font-bold uppercase tracking-[0.2em] hover:border-gold transition-all duration-500 rounded-sm">
+                    Download Brochure
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-32 bg-[#FAF9F6]">
+    <div class="container mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-0 overflow-hidden rounded-[3rem] bg-white shadow-[0_30px_100px_rgba(0,0,0,0.05)] border border-gray-100">
+            
+            <div class="p-12 md:p-20 flex flex-col justify-between">
+                <div>
+                    <p class="text-gold font-bold tracking-[0.5em] text-[10px] uppercase block mb-6">Connect With Us</p>
+                    <h2 class="brand-font text-5xl md:text-6xl font-light text-gray-900 leading-tight mb-8">
+                        Begin Your <br> <span class="italic">Legacy</span>
+                    </h2>
+                    
+                    <p class="text-gray-500 font-light leading-relaxed text-lg max-w-sm mb-12">
+                        Request a private tour of the site or receive a digital copy of our comprehensive investment brochure.
+                    </p>
+
+                    <div class="space-y-8 mb-16">
+                        <div class="flex items-start gap-6 group">
+                            <div class="w-12 h-12 rounded-full bg-cream flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-white transition-all duration-500">
+                                <i class="ph-thin ph-map-pin text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-1">Visit Site</p>
+                                <p class="text-gray-900 font-medium">Nyali, Mombasa, Kenya</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-6 group">
+                            <div class="w-12 h-12 rounded-full bg-cream flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-white transition-all duration-500">
+                                <i class="ph-thin ph-phone text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-1">Direct Line</p>
+                                <p class="text-gray-900 font-medium">{{ project.phone }}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-6 group">
+                            <div class="w-12 h-12 rounded-full bg-cream flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-white transition-all duration-500">
+                                <i class="ph-thin ph-envelope-simple text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-1">Inquiries</p>
+                                <p class="text-gray-900 font-medium">{{ project.email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-10 border-t border-gray-100">
+                    <div class="flex justify-between items-end mb-4">
+                        <div>
+                            <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-1">Development Status</p>
+                            <h4 class="brand-font text-2xl text-gray-900">Current Progress</h4>
+                        </div>
+                        <span class="text-gold font-bold text-lg">{{ project.progress }}%</span>
+                    </div>
+                    <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-gold rounded-full transition-all duration-1000"
+                             style="width: {{ project.progress }}%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative min-h-[500px] lg:min-h-full bg-gray-200">
+                <iframe 
+                    class="absolute inset-0 w-full h-full grayscale-[0.2] contrast-[1.1] brightness-[0.9]"
+                    frameborder="0" 
+                    scrolling="no" 
+                    marginheight="0" 
+                    marginwidth="0" 
+                    src="https://maps.google.com/maps?q=Nyali,Mombasa,Kenya&t=&z=15&ie=UTF8&iwloc=&output=embed">
+                </iframe>
+                
+                <div class="absolute bottom-10 right-10 bg-white/90 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-xl max-w-[240px]">
+                    <p class="text-[10px] uppercase tracking-widest text-gold font-bold mb-2">Prime Location</p>
+                    <p class="text-sm text-gray-900 font-light leading-relaxed">
+                        Strategically located in the most sought-after residential node of Nyali.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

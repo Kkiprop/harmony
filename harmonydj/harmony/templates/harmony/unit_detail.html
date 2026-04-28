@@ -1,0 +1,121 @@
+{% extends 'harmony/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="py-12 bg-gray-50/50">
+    <div class="container mx-auto px-6">
+        
+        <div class="flex items-center gap-2 mb-8 text-[11px] uppercase tracking-widest font-bold text-gray-400">
+            <a href="{% url 'harmony:units_list' %}" class="hover:text-gold transition-colors">Inventory</a>
+            <span>/</span>
+            <span class="text-gray-900">{{ unit.title }}</span>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-12">
+            
+            <div class="lg:col-span-8 space-y-8">
+                <div class="relative group overflow-hidden rounded-3xl bg-white shadow-sm border border-gray-100">
+                    {% if unit.image_file %}
+                    <img src="{{ unit.image_file.url }}" class="w-full h-auto min-h-[500px] object-cover" alt="{{ unit.title }}">
+                    {% elif unit.image %}
+                    <img src="{% static unit.image %}" class="w-full h-auto min-h-[500px] object-cover" alt="{{ unit.title }}">
+                    {% endif %}
+                    
+                    <div class="absolute bottom-6 right-6 flex gap-3">
+                        <button class="bg-white/90 backdrop-blur px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-tighter flex items-center gap-2 shadow-xl hover:bg-white transition-all">
+                            <i class="ph-bold ph-corners-out"></i> View Fullscreen
+                        </button>
+                    </div>
+                </div>
+
+                {% if unit.floor_plan %}
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+                    <div class="flex justify-between items-end mb-8">
+                        <h3 class="brand-font text-3xl text-gray-900 italic">Layout <span class="text-gray-400">&</span> Flow</h3>
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-gold">Architecture Overview</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-2xl p-4 md:p-12">
+                        {% if unit.floor_plan_file %}
+                        <img src="{{ unit.floor_plan_file.url }}" class="w-full h-auto object-contain mix-blend-multiply" alt="Technical Layout">
+                        {% elif unit.floor_plan %}
+                        <img src="{% static unit.floor_plan %}" class="w-full h-auto object-contain mix-blend-multiply" alt="Technical Layout">
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="lg:col-span-4">
+                <div class="sticky top-24 space-y-6">
+                    
+                    <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+                        <div class="flex justify-between items-start mb-4">
+                            <p class="text-gold font-bold tracking-[0.3em] text-[10px] uppercase">{{ unit.get_unit_type_display }}</p>
+                            <div class="flex gap-2">
+                                <i class="ph ph-share-network text-xl text-gray-400 hover:text-gray-900 cursor-pointer"></i>
+                                <i class="ph ph-heart text-xl text-gray-400 hover:text-red-500 cursor-pointer"></i>
+                            </div>
+                        </div>
+
+                        <h1 class="brand-font text-4xl text-gray-900 mb-2 leading-tight">{{ unit.title }}</h1>
+                        
+                        <div class="flex items-baseline gap-2 mb-6">
+                            <span class="text-3xl font-bold tracking-tighter italic">KES {{ unit.price|default:"Price Upon Request" }}</span>
+                        </div>
+
+                        <div class="grid grid-cols-3 border-y border-gray-50 py-6 my-6 gap-2 text-center">
+                            <div>
+                                <p class="text-lg font-bold">{{ unit.bedrooms }}</p>
+                                <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold">Beds</p>
+                            </div>
+                            <div class="border-x border-gray-100">
+                                <p class="text-lg font-bold">2.5</p>
+                                <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold">Baths</p>
+                            </div>
+                            <div>
+                                <p class="text-lg font-bold">{{ unit.size_sqm }}</p>
+                                <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold">SQ.M</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 mb-8">
+                            <h4 class="text-[11px] font-bold uppercase tracking-widest text-gray-900">Key Amenities</h4>
+                            <ul class="grid grid-cols-1 gap-3">
+                                {% for f in unit.features_list %}
+                                <li class="flex items-center gap-3 text-sm text-gray-600">
+                                    <i class="ph-bold ph-check text-gold"></i>
+                                    {{ f }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        {% if unit.available %}
+                        <a href="{% url 'harmony:enquire' %}" class="block w-full text-center py-4 bg-gray-900 text-white rounded-xl font-bold text-xs uppercase tracking-[0.2em] hover:bg-gold transition-colors duration-500 shadow-lg shadow-gray-200">
+                            Book Private Viewing
+                        </a>
+                        {% else %}
+                        <button disabled class="w-full py-4 bg-gray-100 text-gray-400 rounded-xl font-bold text-xs uppercase tracking-widest">
+                            Unit Reserved
+                        </button>
+                        {% endif %}
+                        
+                        <p class="text-center mt-4 text-[10px] text-gray-400 font-medium">Estimated completion: Q4 2026</p>
+                    </div>
+
+                    <div class="bg-gold/5 p-6 rounded-3xl border border-gold/10">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="ph-fill ph-chart-line-up text-gold text-xl"></i>
+                            <span class="text-xs font-bold uppercase tracking-widest text-gray-900">Investment Insight</span>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Units in this sector of Mombasa have seen a <span class="font-bold text-gray-900">12% appreciation</span> over the last 18 months.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

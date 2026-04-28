@@ -1,0 +1,54 @@
+{% extends 'harmony/base.html' %}
+
+{% block content %}
+<section class="py-12 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="brand-font text-3xl font-light">Units Dashboard</h2>
+      <a href="/admin/harmony/unit/" class="px-4 py-2 rounded bg-gray-100">Open Admin</a>
+    </div>
+
+    <div class="grid grid-cols-3 gap-6 mb-8">
+      <div class="p-6 bg-white border rounded shadow-sm">
+        <p class="text-sm text-gray-500">Total Units</p>
+        <p class="text-2xl font-semibold">{{ total }}</p>
+      </div>
+      <div class="p-6 bg-white border rounded shadow-sm">
+        <p class="text-sm text-gray-500">Available</p>
+        <p class="text-2xl font-semibold">{{ available }}</p>
+      </div>
+      <div class="p-6 bg-white border rounded shadow-sm">
+        <p class="text-sm text-gray-500">Unavailable</p>
+        <p class="text-2xl font-semibold">{{ unavailable }}</p>
+      </div>
+    </div>
+
+    <div class="overflow-hidden bg-white border rounded">
+      <table class="w-full text-left">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="p-4">Title</th>
+            <th class="p-4">Type</th>
+            <th class="p-4">Beds</th>
+            <th class="p-4">Baths</th>
+            <th class="p-4">Available</th>
+            <th class="p-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for unit in units %}
+          <tr class="border-t">
+            <td class="p-4">{{ unit.title }}</td>
+            <td class="p-4">{{ unit.get_unit_type_display }}</td>
+            <td class="p-4">{{ unit.bedrooms }}</td>
+            <td class="p-4">{{ unit.bathrooms }}</td>
+            <td class="p-4">{{ unit.available }}</td>
+            <td class="p-4"><a href="/admin/harmony/unit/{{ unit.id }}/change/" class="text-gold">Edit</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

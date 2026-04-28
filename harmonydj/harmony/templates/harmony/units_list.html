@@ -1,0 +1,83 @@
+{% extends 'harmony/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        
+        <div class="max-w-3xl mb-16">
+            <p class="text-gold font-bold tracking-[0.5em] text-[10px] uppercase mb-4">Mombasa Luxury Living</p>
+            <h1 class="brand-font text-5xl md:text-7xl font-light text-gray-900 leading-tight">
+                Curated <br> <span class="italic text-gray-400">Inventory</span>
+            </h1>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-6 mb-12 border-y border-gray-100 py-6">
+            <div class="flex gap-8">
+                <a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-900 border-b-2 border-gold pb-1">All Listings</a>
+                <a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-400 hover:text-gray-900 transition-colors">2 Bedrooms</a>
+                <a href="#" class="text-[11px] uppercase tracking-widest font-bold text-gray-400 hover:text-gray-900 transition-colors">3 Bedrooms</a>
+            </div>
+            <div class="hidden md:block">
+                <span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest">{{ units|length }} Units Available</span>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+            {% for unit in units %}
+            <article class="group relative">
+                <a href="{% url 'harmony:unit_detail' unit.slug %}" class="block overflow-hidden rounded-xl mb-6 relative aspect-[4/5] shadow-sm hover:shadow-xl transition-shadow duration-500">
+                    {% if unit.image_file %}
+                    <img src="{{ unit.image_file.url }}" alt="{{ unit.title }}" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110">
+                    {% elif unit.image %}
+                    <img src="{% static unit.image %}" alt="{{ unit.title }}" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110">
+                    {% endif %}
+                    
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="bg-blue-600 text-white text-[9px] font-bold uppercase px-3 py-1 rounded-sm shadow-lg">New Construction</span>
+                    </div>
+
+                    <button class="absolute top-4 right-4 text-white/80 hover:text-red-500 transition-colors drop-shadow-md">
+                        <i class="ph-fill ph-heart text-2xl"></i>
+                    </button>
+
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+                        <p class="text-2xl font-bold text-white tracking-tight leading-none italic">KES {{ unit.price }}</p>
+                    </div>
+                </a>
+
+                <div class="px-1">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="brand-font text-2xl text-gray-900">{{ unit.title }}</h3>
+                        <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse" title="Active Listing"></span>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 text-[12px] text-gray-600 border-t border-gray-50 pt-4">
+                        <div class="flex items-center gap-1.5">
+                            <i class="ph-bold ph-bed"></i>
+                            <span class="font-bold">{{ unit.bedrooms }}</span> <span class="text-gray-400 uppercase text-[10px]">bd</span>
+                        </div>
+                        <span class="text-gray-200">|</span>
+                        <div class="flex items-center gap-1.5">
+                            <i class="ph-bold ph-bathtub"></i>
+                            <span class="font-bold">2</span> <span class="text-gray-400 uppercase text-[10px]">ba</span>
+                        </div>
+                        <span class="text-gray-200">|</span>
+                        <div class="flex items-center gap-1.5">
+                            <i class="ph-bold ph-arrows-out"></i>
+                            <span class="font-bold">{{ unit.size_sqm }}</span> <span class="text-gray-400 uppercase text-[10px]">sq.m</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <a href="{% url 'harmony:unit_detail' unit.slug %}" class="text-[10px] font-bold uppercase tracking-[0.2em] text-gold hover:underline">
+                            Request Virtual Tour
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
