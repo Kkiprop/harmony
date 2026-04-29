@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Project, Amenity, Enquiry
-from .models import Unit
+from .models import Project, Amenity, Enquiry, Unit, GalleryItem
 from django.utils.html import format_html
 
 
@@ -40,3 +39,22 @@ class UnitAdmin(admin.ModelAdmin):
 		return ''
 
 	admin_image.short_description = 'Image'
+
+
+@admin.register(GalleryItem)
+class GalleryItemAdmin(admin.ModelAdmin):
+	list_display = ('__str__', 'media_type', 'featured', 'order', 'admin_preview')
+	list_filter = ('media_type', 'featured')
+	search_fields = ('title', 'vimeo_url')
+
+	def admin_preview(self, obj):
+		try:
+			if obj.media_type == 'image' and obj.image_file:
+				return format_html('<img src="{}" style="height:40px;" />', obj.image_file.url)
+		except Exception:
+			pass
+		if obj.media_type == 'video' and obj.vimeo_url:
+			return format_html('<a href="{}" target="_blank">Vimeo</a>', obj.vimeo_embed_url())
+		return ''
+
+	admin_preview.short_description = 'Preview'

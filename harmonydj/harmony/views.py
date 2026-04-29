@@ -5,7 +5,7 @@ from django.template import engines
 from django.http import FileResponse, Http404
 import os
 
-from .models import Project, Amenity
+from .models import Project, Amenity, GalleryItem
 from .forms import EnquiryForm
 from .models import Unit
 from django.shortcuts import get_object_or_404
@@ -48,7 +48,8 @@ def home(request):
 		pass
 
 	form = EnquiryForm()
-	return render(request, 'harmony/home.html', {'project': project, 'form': form})
+	gallery_preview = GalleryItem.objects.filter(featured=True).order_by('order')[:6]
+	return render(request, 'harmony/home.html', {'project': project, 'form': form, 'gallery_preview': gallery_preview})
 
 
 def units_list(request):
@@ -106,3 +107,37 @@ def hero_image(request):
 		if os.path.exists(path):
 			return FileResponse(open(path, 'rb'), content_type='image/png')
 	raise Http404('hero.png not found')
+
+
+def gallery_list(request):
+	items = GalleryItem.objects.all().order_by('order')
+	project = _get_or_create_default_project()
+	return render(request, 'harmony/gallery_list.html', {'items': items, 'project': project})
+
+
+def download_brochure(request):
+	"""Serve a brochure PDF file if present under static/ or media/ directories.
+
+	Searches for the first PDF filename containing 'brochure' (case-insensitive).
+	"""
+	search_dirs = [
+		os.path.join(settings.BASE_DIR, 'static'),
+		os.path.join(os.path.dirname(__file__), 'static'),
+		getattr(settings, 'MEDIA_ROOT', None),
+	]
+	for d in search_dirs:
+		if not d:
+			continue
+		if not os.path.exists(d):
+			continue
+		for root, dirs, files in os.walk(d):
+			for fname in files:
+				if fname.lower().endswith('.pdf') and 'brochure' in fname.lower():
+					path = os.path.join(root, fname)
+					try:
+						resp = FileResponse(open(path, 'rb'), content_type='application/pdf')
+						resp['Content-Disposition'] = f'attachment; filename="{fname}"'
+						return resp
+					except Exception:
+						continue
+	raise Http404('Brochure not found')

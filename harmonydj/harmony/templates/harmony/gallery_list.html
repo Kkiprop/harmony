@@ -1,0 +1,35 @@
+{% extends 'harmony/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="py-24 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="uppercase tracking-[0.3em] text-[10px] text-gold font-bold mb-2">Gallery</p>
+      <h1 class="brand-font text-4xl font-light text-gray-900">Gallery</h1>
+      <div class="w-16 h-px bg-gold mx-auto mt-4"></div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {% for item in items %}
+      <div class="rounded-xl overflow-hidden bg-white border border-gray-100">
+        {% if item.media_type == 'image' %}
+          {% if item.image_file %}
+            <img src="{{ item.image_file.url }}" class="w-full h-72 object-cover">
+          {% endif %}
+        {% else %}
+          <div class="relative pb-[56.25%]">
+            <iframe src="{{ item.vimeo_embed_url }}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen class="absolute inset-0 w-full h-full"></iframe>
+          </div>
+        {% endif %}
+      </div>
+      {% empty %}
+        <p class="text-gray-500">No gallery items yet.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

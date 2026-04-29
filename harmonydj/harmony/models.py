@@ -73,3 +73,43 @@ class Unit(models.Model):
 
 	def __str__(self):
 		return self.title
+
+
+class GalleryItem(models.Model):
+	MEDIA_CHOICES = [
+		('image', 'Image'),
+		('video', 'Video'),
+	]
+
+	title = models.CharField(max_length=200, blank=True)
+	media_type = models.CharField(max_length=10, choices=MEDIA_CHOICES, default='image')
+	image_file = models.ImageField(upload_to='gallery/images/', blank=True, null=True)
+	vimeo_url = models.CharField(max_length=255, blank=True, help_text='Vimeo URL or video id')
+	featured = models.BooleanField(default=False, help_text='Show in homepage preview')
+	order = models.PositiveIntegerField(default=0)
+	created_at = models.DateTimeField(auto_now_add=True)
+
+	class Meta:
+		ordering = ['order', '-created_at']
+
+	def vimeo_embed_url(self):
+		import re
+		url = (self.vimeo_url or '').strip()
+		if not url:
+			return ''
+		if re.fullmatch(r'\d+', url):
+			return f'https://player.vimeo.com/video/{url}'
+		m = re.search(r'vimeo.com/(?:video/)?(\d+)', url)
+		if m:
+			return f'https://player.vimeo.com/video/{m.group(1)}'
+		if 'player.vimeo.com' in url:
+			return url
+		return ''
+
+	def thumbnail_url(self):
+		if self.image_file:
+			return self.image_file.url
+		return ''
+
+	def __str__(self):
+		return self.title or (self.vimeo_url or '')[:30]
