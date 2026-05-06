@@ -290,7 +290,7 @@
               <div>
                         <p class="uppercase text-[10px] tracking-[0.4em] text-gold font-bold mb-2">Project Walkthrough</p>
                         <h3 class="brand-font text-4xl font-light">Taking Shape</h3>
-                        <p class="text-gray-600 mt-4">Construction progress: <strong>85% complete (6th floor)</strong>. Expected completion: <strong>Dec 2026</strong>.</p>
+                        <p class="text-gray-600 mt-4">Construction progress: <strong>{{ project.progress|default:'85%' }} complete (6th floor)</strong>. Expected completion: <strong>Dec 2026</strong>.</p>
                         <p class="text-gray-600 mt-3">Our delivery follows strict QA protocols, third‑party inspections, and premium finishes — backed by a dedicated property management team to ensure long-term performance.</p>
                         <p class="text-gray-600 mt-3">Few units remaining — secure your investment today.</p>
                     </div>
@@ -331,7 +331,7 @@
                 'Grand open plan living & dining', 'Fully fitted kitchen with premium appliances',
                 'Master bedroom with walk-in wardrobe', 'All bedrooms ensuite',
                 'Staff quarters included', 'Oversized entertainment patio',
-                'Multiple ocean-facing windows', 'Air-conditioning throughout'
+                'Multiple ocean-facing windows', 'Air-conditioning throughout', 'SQ Available',
             ],
             kitchen: [
                 '6 Burner gas top', 'Hood', 'Double door fridge', 'Microwave', 'Dishwasher', 'Oven', 'Kettle', 'Toaster'
@@ -721,8 +721,8 @@
                 <ul class="space-y-3 text-gray-600">
                     <li><strong>2BR:</strong> approx. $ 80/day</li>
                     <li><strong>3BR:</strong> approx. $ 167/day</li>
-                    <li><strong>Occupancy Assumption:</strong> ~60%</li>
-                    <li><strong>Estimated ROI:</strong> 18–25% p.a.</li>
+                    <li><strong>Occupancy:</strong> ~60%</li>
+                    <li><strong>ROI:</strong> 17% p.a.</li>
                 </ul>
                 <div class="mt-6">
                     <p class="text-sm text-gray-500">Daily rates shown are approximate and subject to seasonal changes.</p>
@@ -827,13 +827,13 @@
                 </div>
 
                 <div class="pt-10 border-t border-gray-100">
-                    <p class="text-sm text-gray-600 mb-3"><strong>Construction:</strong> 6th floor — 85% complete. Expected completion: Dec 2026.</p>
+                    <p class="text-sm text-gray-600 mb-3"><strong>Construction:</strong> 6th floor — {{ project.progress }}% complete. Expected completion: Dec 2026.</p>
                     <div class="flex justify-between items-end mb-4">
                         <div>
                             <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-1">Development Status</p>
                             <h4 class="brand-font text-2xl text-gray-900">Current Progress</h4>
                         </div>
-                        <span class="text-gold font-bold text-lg">85%</span>
+                        <span class="text-gold font-bold text-lg">{{ project.progress }}%</span>
                     </div>
                     <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                             <div class="h-full bg-gold rounded-full transition-all duration-1000"
