@@ -94,6 +94,23 @@ def enquire(request):
 	return render(request, 'harmony/enquire.html', {'form': form, 'project': project})
 
 
+def contact(request):
+	project = _get_or_create_default_project()
+	if request.method == 'POST':
+		form = EnquiryForm(request.POST)
+		if form.is_valid():
+			enquiry = form.save(commit=False)
+			enquiry.project = project
+			enquiry.save()
+			subject = f'New enquiry from {enquiry.name}'
+			message = f'Name: {enquiry.name}\nEmail: {enquiry.email}\nPhone: {enquiry.phone}\n\n{enquiry.message}'
+			send_mail(subject, message, enquiry.email, [project.email])
+			return render(request, 'harmony/enquire_thanks.html', {'project': project, 'enquiry': enquiry})
+	else:
+		form = EnquiryForm()
+	return render(request, 'harmony/contact.html', {'form': form, 'project': project})
+
+
 def hero_image(request):
 	"""Serve the hero image directly from disk (development only).
 

@@ -83,8 +83,9 @@
 
 <!-- HERO -->
 <section 
-    x-data="{ loaded: false, openModal: false }" 
-    x-init="setTimeout(() => loaded = true, 100)"
+    x-data="{ loaded: false, openModal: false }"
+    x-on:open-enquire-modal.window="openModal = true"
+    x-init="setTimeout(() => loaded = true, 100); if (new URLSearchParams(window.location.search).get('enquire') === '1') { openModal = true; }"
     class="relative min-h-screen text-white flex items-center overflow-hidden"
 >
     <!-- Urgency badge: right-side CTA to create FOMO -->
@@ -119,12 +120,22 @@
 
                 <div class="w-20 h-px bg-gold mb-8"></div>
 
-                <h2 class="brand-font text-4xl md:text-6xl font-light leading-tight italic mb-8">
-                    The Architecture <br class="hidden md:block"> of <span class="font-normal">Silence</span>
+                <div class="inline-flex items-center gap-3 mb-6 px-5 py-3 rounded-full bg-gradient-to-r from-[#d4af37] to-[#f4e0a2] text-[#111827] shadow-2xl border border-white/40">
+                    <span class="text-[10px] uppercase tracking-[0.28em] font-bold">Located</span>
+                    <span class="brand-font text-3xl md:text-4xl leading-none font-semibold">300m from the beach</span>
+                </div>
+
+                <p class="text-[11px] md:text-[12px] uppercase tracking-[0.35em] text-gold-light font-bold mb-5">
+                    2 Bedroom and 3 Bedroom + SQ Residences
+                </p>
+
+                <h2 class="brand-font text-2xl md:text-4xl font-light leading-tight italic mb-8">
+                    Luxury Coastal Living Designed With You In Mind 
+                    {% comment %} <br class="hidden md:block"> in <span class="font-normal">Nyali</span> {% endcomment %}
                 </h2>
 
                 <p class="text-base md:text-lg text-gray-300 max-w-xl leading-relaxed font-light mb-12">
-                    A rare chance to own luxury just 300m from the beach—and earn from it. Bespoke 2 & 3 bedroom ensuite residences with sweeping ocean views, designed as private, non-connected blocks for true serenity. Harmony Nyali blends resort-style living with high-yield short-term rental returns of up to 25% ROI. Limited units available, prices rising—secure yours now.
+                    Own a premium 2 Bedroom or 3 Bedroom + SQ residence just 300m from the beach. Ocean views, private-block design, and strong short-stay rental potential. Make Harmony a rare Nyali investment with 17% ROI.
                 </p>
 
                 <div class="flex flex-wrap gap-6 mb-12">
@@ -156,13 +167,18 @@
 
             <!-- Right CTA removed per request -->
 
-            <!-- Modal: Request a Viewing (headings removed) -->
-            <div x-show="openModal" x-cloak x-on:keydown.escape.window="openModal = false" class="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-                <div x-show="openModal" x-transition.opacity class="fixed inset-0 bg-black/60" aria-hidden="true"></div>
+            <!-- Modal: Request a Viewing -->
+            <div x-show="openModal" x-cloak x-on:keydown.escape.window="openModal = false" class="fixed inset-0 z-[220] flex items-start justify-center px-4 pt-28 pb-6 sm:px-6 sm:pt-24 lg:px-8">
+                <div x-show="openModal" x-transition.opacity class="fixed inset-0 bg-[#080c14]/75 backdrop-blur-sm" aria-hidden="true"></div>
 
-                <div x-show="openModal" x-transition class="relative max-w-2xl w-full mx-auto bg-white rounded-3xl shadow-2xl p-6 md:p-8 z-50 max-h-[90vh] overflow-y-auto" @click.away="openModal = false">
-                    <div class="flex items-start justify-end mb-4">
-                        <button @click="openModal = false" aria-label="Close" class="text-gray-400 hover:text-gray-600">&times;</button>
+                <div x-show="openModal" x-transition class="relative z-[230] max-w-2xl w-full mx-auto overflow-y-auto rounded-[2rem] border border-white/60 bg-white/95 p-6 shadow-[0_32px_120px_rgba(8,12,20,0.35)] backdrop-blur md:p-8 max-h-[calc(100vh-8rem)] sm:max-h-[calc(100vh-7rem)]" @click.away="openModal = false">
+                    <div class="mb-6 flex items-start justify-between gap-4 border-b border-gray-100 pb-4">
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-[0.35em] text-gold">Private Viewing</p>
+                            <h3 class="brand-font mt-2 text-3xl font-light text-gray-900 sm:text-4xl">Request a Visit</h3>
+                            <p class="mt-2 max-w-md text-sm text-gray-500">Choose your preferred unit and date, and we will follow up to confirm your viewing.</p>
+                        </div>
+                        <button @click="openModal = false" aria-label="Close" class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gray-200 text-xl leading-none text-gray-500 transition-colors hover:border-gray-300 hover:text-gray-900">&times;</button>
                     </div>
 
                     <form id="modal-contact-form" class="space-y-4" onsubmit="return sendWhatsAppMessage(event)">
@@ -255,9 +271,13 @@
       <h2 class="brand-font text-5xl md:text-6xl text-gray-900 mt-3 leading-tight">Where Coastal Prestige Meets Quiet Luxury</h2>
       <div class="w-12 h-px bg-gold mt-6"></div>
 
-      <p class="mt-8 text-gray-600 leading-8 text-lg font-light">
+      {% comment %} <p class="mt-8 text-gray-600 leading-8 text-lg font-light">
         {{ project.about|default:"Experience a sanctuary of architectural brilliance in the heart of Nyali, where every detail is crafted for the discerning eye." }}
-      </p>
+      </p> {% endcomment %}
+
+        <p class="mt-6 text-gray-600 leading-8 text-lg font-light">
+            The development offers thoughtfully planned 2 Bedroom residences and larger 3 Bedroom + SQ residences, combining elegant layouts, ensuite comfort, and strong lifestyle appeal in one of Nyali's most sought-after addresses.
+        </p>
     </div>
 
     <div class="rounded-3xl overflow-hidden shadow-2xl relative aspect-video bg-gray-100">
@@ -290,7 +310,7 @@
               <div>
                         <p class="uppercase text-[10px] tracking-[0.4em] text-gold font-bold mb-2">Project Walkthrough</p>
                         <h3 class="brand-font text-4xl font-light">Taking Shape</h3>
-                        <p class="text-gray-600 mt-4">Construction progress: <strong>{{ project.progress|default:'85%' }} complete (6th floor)</strong>. Expected completion: <strong>Dec 2026</strong>.</p>
+                        <p class="text-gray-600 mt-4">Construction progress: <strong>{{ project.progress|default:'85%' }}% complete (6th floor)</strong>. Expected completion: <strong>Dec 2026</strong>.</p>
                         <p class="text-gray-600 mt-3">Our delivery follows strict QA protocols, third‑party inspections, and premium finishes — backed by a dedicated property management team to ensure long-term performance.</p>
                         <p class="text-gray-600 mt-3">Few units remaining — secure your investment today.</p>
                     </div>
@@ -298,18 +318,30 @@
     </div>
 </section>
 
-<!-- RESIDENCES TABS SECTION -->
-<section id="residences" class="py-24 bg-[#FAF9F6]" x-data="{ 
+<!-- RESIDENCES FLOOR PLANS -->
+<section id="residences" class="py-24 bg-[#FAF9F6]" x-data="{
     active: 'two',
-    priceNote: 'Prices apply from 1st Floor',
+    kitchenIcon(feature) {
+        if (feature.includes('gas top')) return 'ph-thin ph-fire-simple';
+        if (feature === 'Hood') return 'ph-thin ph-wind';
+        if (feature.includes('fridge')) return 'ph-thin ph-snowflake';
+        if (feature === 'Microwave') return 'ph-thin ph-lightning';
+        if (feature === 'Dishwasher') return 'ph-thin ph-drop';
+        if (feature === 'Oven') return 'ph-thin ph-cooking-pot';
+        if (feature === 'Kettle') return 'ph-thin ph-cooking-pot';
+        if (feature === 'Toaster') return 'ph-thin ph-fire-simple';
+        return 'ph-thin ph-sparkles';
+    },
     units: {
         'two': {
-            title: '2 Bedroom',
+            label: '2 Bedroom',
             subtitle: 'ALL ENSUITE',
-            price: 'From $ 147k',
-            image: '{% static 'Hero_harmony.png' %}',
+            price: 'From KES 28M',
             floorPlan: '{% static 'Harmony_2_bedroom_floor.png' %}',
-            beds: '2', baths: '2', sqm: '146 SQ.M.', sqft: '1,572 SQ.FT.',
+            beds: '2',
+            baths: '2',
+            sqm: '146 SQ.M.',
+            sqft: '1,572 SQ.FT.',
             features: [
                 'Open plan living & dining', 'Fully fitted kitchen with premium appliances',
                 'Master bedroom with walk-in wardrobe', 'Master ensuite bathroom',
@@ -321,17 +353,19 @@
             ]
         },
         'three': {
-            title: '3 Bedroom',
+            label: '3 Bedroom +SQ',
             subtitle: 'ALL ENSUITE + SQ',
-            price: 'From $ 216k',
-            image: '{% static 'Hero_harmony.png' %}',
+            price: 'From KES 38M',
             floorPlan: '{% static 'Harmony_3_bedroom_floor.png' %}',
-            beds: '3', baths: '4', sqm: '235 SQ.M.', sqft: '2,530 SQ.FT.',
+            beds: '3',
+            baths: '4',
+            sqm: '235 SQ.M.',
+            sqft: '2,530 SQ.FT.',
             features: [
                 'Grand open plan living & dining', 'Fully fitted kitchen with premium appliances',
                 'Master bedroom with walk-in wardrobe', 'All bedrooms ensuite',
                 'Staff quarters included', 'Oversized entertainment patio',
-                'Multiple ocean-facing windows', 'Air-conditioning throughout', 'SQ Available',
+                'Multiple ocean-facing windows', 'Air-conditioning throughout', 'SQ Available'
             ],
             kitchen: [
                 '6 Burner gas top', 'Hood', 'Double door fridge', 'Microwave', 'Dishwasher', 'Oven', 'Kettle', 'Toaster'
@@ -350,93 +384,82 @@
             <div class="w-16 h-px bg-gold mx-auto mt-8"></div>
         </div>
 
-        <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
-            
-            <div class="relative rounded-[2rem] overflow-visible shadow-2xl group">
-                <div class="relative h-[480px] md:h-[520px] flex items-center justify-center">
-                    <div class="relative w-full max-w-5xl h-full">
-                        <!-- Back (larger) image - positioned top-right, slight positive rotation -->
-                        <img src="{% static 'harmony/Harmony_outdoor_enhanced.png' %}" alt="Outdoor" class="absolute right-6 top-6 md:right-0 md:top-0 transform w-[62%] md:w-[66%] h-[380px] md:h-[480px] object-cover rounded-2xl shadow-2xl border border-white/10 rotate-[2deg] z-10 transition-transform duration-700 group-hover:scale-105">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-4 mb-10">
+                <button @click="active = 'two'"
+                    :class="active === 'two' ? 'bg-[#b18b52] text-white border-[#b18b52]' : 'bg-white text-gray-900 border-gray-200'"
+                    class="px-8 py-3 text-[11px] font-bold uppercase tracking-widest border transition-all duration-300 rounded-sm">
+                    2 Bedroom
+                </button>
+                <button @click="active = 'three'"
+                    :class="active === 'three' ? 'bg-[#b18b52] text-white border-[#b18b52]' : 'bg-white text-gray-900 border-gray-200'"
+                    class="px-8 py-3 text-[11px] font-bold uppercase tracking-widest border transition-all duration-300 rounded-sm">
+                    3 Bedroom +SQ
+                </button>
+            </div>
 
-                        <!-- Front (smaller) image - positioned bottom-left, no frame, slight negative rotation -->
-                        <img src="{% static 'harmony/Harmony_indoor_enh.png' %}" alt="Indoor" class="absolute left-6 bottom-6 md:left-8 md:bottom-12 z-20 w-[42%] md:w-[36%] h-[280px] md:h-[360px] object-cover rounded-2xl shadow-2xl -rotate-[6deg] transition-transform duration-500 group-hover:rotate-0">
-                    </div>
-
-                    <div class="absolute top-6 left-6 bg-white/95 text-gold px-4 py-2 rounded-full shadow" x-text="units[active].price"></div>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-4">
+                <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
+                    <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Bedrooms</p>
+                    <p class="text-xl font-medium" x-text="units[active].beds"></p>
+                </div>
+                <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
+                    <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Bathrooms</p>
+                    <p class="text-xl font-medium" x-text="units[active].baths"></p>
+                </div>
+                <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
+                    <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Size</p>
+                    <p class="text-sm font-medium" x-text="units[active].sqm"></p>
+                </div>
+                <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
+                    <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Size Ft</p>
+                    <p class="text-sm font-medium" x-text="units[active].sqft"></p>
+                </div>
+                <div class="col-span-2 sm:col-span-1 bg-[#0b1120] border border-[#0b1120] p-4 rounded-xl shadow-sm text-center">
+                    <p class="text-[9px] uppercase tracking-widest text-gold-light mb-1">Pricing</p>
+                    <p class="text-lg font-semibold text-white" x-text="units[active].price"></p>
                 </div>
             </div>
-            
 
-            <div class="lg:pl-8">
-                <div class="flex gap-4 mb-10">
-                    <button @click="active = 'two'" 
-                        :class="active === 'two' ? 'bg-[#b18b52] text-white border-[#b18b52]' : 'bg-white text-gray-900 border-gray-200'"
-                        class="px-8 py-3 text-[11px] font-bold uppercase tracking-widest border transition-all duration-300 rounded-sm">
-                        2 Bedroom
-                    </button>
-                    <button @click="active = 'three'" 
-                        :class="active === 'three' ? 'bg-[#b18b52] text-white border-[#b18b52]' : 'bg-white text-gray-900 border-gray-200'"
-                        class="px-8 py-3 text-[11px] font-bold uppercase tracking-widest border transition-all duration-300 rounded-sm">
-                        3 Bedroom
-                    </button>
+            <div class="mb-10 text-center space-y-2">
+                <p class="text-xs text-gray-500 italic">Prices apply from 1st Floor.</p>
+                <p class="text-[11px] uppercase tracking-[0.22em] text-[#b45309] font-bold">Limited units available</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-[1.5rem] border border-gray-100 p-6 md:p-8 shadow-sm">
+                    <p class="uppercase tracking-[0.3em] text-[10px] text-gold font-bold mb-3">Residence Features</p>
+                    <p class="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-bold mb-5" x-text="units[active].subtitle"></p>
+                    <div class="grid grid-cols-1 gap-y-3 gap-x-6">
+                        <template x-for="feature in units[active].features" :key="feature">
+                            <div class="flex items-center gap-3">
+                                <span class="text-gold text-sm">✓</span>
+                                <span class="text-gray-600 text-sm font-light" x-text="feature"></span>
+                            </div>
+                        </template>
+                    </div>
                 </div>
 
-                <div x-show="active" x-transition:enter="transition ease-out duration-300" class="space-y-8">
-                    <div>
-                        <h3 class="text-4xl font-light text-gray-900 mb-1" x-text="units[active].title"></h3>
-                        <p class="text-gold tracking-[0.2em] text-[11px] font-bold uppercase" x-text="units[active].subtitle"></p>
-                        <p class="text-2xl text-gold font-bold mt-2" x-text="units[active].price"></p>
-                        <p class="text-xs text-gray-500 mt-1 italic" x-text="priceNote"></p>
-                    </div>
-
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
-                            <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Bedrooms</p>
-                            <p class="text-xl font-medium" x-text="units[active].beds"></p>
-                        </div>
-                        <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
-                            <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Bathrooms</p>
-                            <p class="text-xl font-medium" x-text="units[active].baths"></p>
-                        </div>
-                        <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
-                            <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Size</p>
-                            <p class="text-sm font-medium" x-text="units[active].sqm"></p>
-                        </div>
-                        <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm text-center">
-                            <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-1">Size Ft</p>
-                            <p class="text-sm font-medium" x-text="units[active].sqft"></p>
-                        </div>
-                    </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 pt-4">
-                                <template x-for="feature in units[active].features" :key="feature">
-                                    <div class="flex items-center gap-3">
-                                        <span class="text-gold text-sm">✓</span>
-                                        <span class="text-gray-600 text-sm font-light" x-text="feature"></span>
-                                    </div>
-                                </template>
+                <div class="bg-white rounded-[1.5rem] border border-gray-100 p-6 md:p-8 shadow-sm">
+                    <p class="uppercase tracking-[0.3em] text-[10px] text-gold font-bold mb-3">Kitchen Features</p>
+                    <p class="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-bold mb-5">Curated Appliance Package</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <template x-for="kf in units[active].kitchen" :key="kf">
+                            <div class="flex items-center gap-3">
+                                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-[#faf6ea] text-gold">
+                                    <i :class="kitchenIcon(kf) + ' text-base stroke-1'"></i>
+                                </span>
+                                <span class="text-gray-600 text-sm font-light" x-text="kf"></span>
                             </div>
-
-                            <div class="mt-6">
-                                <p class="uppercase text-[10px] tracking-widest text-gray-400 mb-3">Kitchen Features</p>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    <template x-for="kf in units[active].kitchen" :key="kf">
-                                        <div class="flex items-center gap-3">
-                                            <span class="text-gold text-sm">•</span>
-                                            <span class="text-gray-600 text-sm font-light" x-text="kf"></span>
-                                        </div>
-                                    </template>
-                                </div>
-                            </div>
+                        </template>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="mt-20">
             <div class="text-center mb-10">
                 <p class="uppercase tracking-[0.3em] text-[10px] text-gold font-bold mb-2">Floor Plans</p>
-                <h4 class="brand-font text-3xl font-light text-gray-900">Architectural Layout</h4>
-                <p class="text-sm text-gray-500 italic mt-2">Sea view from 4th floor.</p>
+                <h4 class="brand-font text-3xl font-light text-gray-900" x-text="units[active].label + ' Layout'"></h4>
+                <p class="text-sm text-gray-500 italic mt-2">Floor area: <span x-text="units[active].sqm"></span> • <span x-text="units[active].sqft"></span></p>
             </div>
             
             <div class="bg-white rounded-[2rem] p-8 md:p-16 border border-gray-100 shadow-sm overflow-hidden flex justify-center items-center">
@@ -711,48 +734,35 @@
     <div class="container mx-auto px-6">
         <div class="text-center mb-12">
             <p class="text-gold font-bold tracking-[0.5em] text-[10px] uppercase mb-6">Investment Snapshot</p>
-            <h2 class="brand-font text-5xl md:text-6xl font-light text-gray-900 leading-tight">Guaranteed Returns</h2>
+            <h2 class="brand-font text-5xl md:text-6xl font-light text-gray-900 leading-tight">Investment Overview</h2>
             <div class="w-12 h-px bg-gold mx-auto mt-6"></div>
         </div>
 
         <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-start">
             <div class="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">
-                <h3 class="text-2xl font-semibold mb-4">Rental Rates & Projections</h3>
+                <p class="text-sm uppercase tracking-[0.2em] text-gold font-bold mb-3">2 Bedroom</p>
+                <p class="text-3xl font-semibold text-gray-900 mb-6">From KES 28M</p>
                 <ul class="space-y-3 text-gray-600">
-                    <li><strong>2BR:</strong> approx. $ 80/day</li>
-                    <li><strong>3BR:</strong> approx. $ 167/day</li>
-                    <li><strong>Occupancy:</strong> ~60%</li>
-                    <li><strong>ROI:</strong> 17% p.a.</li>
+                    <li><strong>Estimated daily rate:</strong> KES 12,000-24,000 peak</li>
+                    <li><strong>Estimated annual return:</strong> 15-18%</li>
                 </ul>
-                <div class="mt-6">
-                    <p class="text-sm text-gray-500">Daily rates shown are approximate and subject to seasonal changes.</p>
-                </div>
             </div>
 
             <div class="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">
-                <h3 class="text-2xl font-semibold mb-4">Quick Returns Breakdown</h3>
-                <div class="grid grid-cols-2 gap-4">
-                   <div class="p-4 bg-gray-50 rounded">
-                     <p class="text-sm text-gray-500">Annual Income (2BR)</p>
-                     <p class="text-xl font-bold mt-2">~$ 17k</p>
-                   </div>
-                   <div class="p-4 bg-gray-50 rounded">
-                     <p class="text-sm text-gray-500">Annual Income (3BR)</p>
-                     <p class="text-xl font-bold mt-2">~$ 36k</p>
-                   </div>
-                   <div class="p-4 bg-gray-50 rounded">
-                     <p class="text-sm text-gray-500">Unit Mix</p>
-                     <p class="text-xl font-bold mt-2">48 units • 24 x 2BR • 24 x 3BR</p>
-                   </div>
-                   <div class="p-4 bg-gray-50 rounded">
-                     <p class="text-sm text-gray-500">Availability</p>
-                     <p class="text-xl font-bold mt-2 text-red-600">Limited Units Available</p>
-                   </div>
-                </div>
+                <p class="text-sm uppercase tracking-[0.2em] text-gold font-bold mb-3">3 Bedroom + SQ</p>
+                <p class="text-3xl font-semibold text-gray-900 mb-6">From KES 38M</p>
+                <ul class="space-y-3 text-gray-600">
+                    <li><strong>Estimated daily rate:</strong> KES 20,000-40,000 peak</li>
+                    <li><strong>Estimated annual return:</strong> 18-23%</li>
+                </ul>
                 {% comment %} <div class="mt-6 text-center">
                   <a href="mailto:{{ project.email|default:'exquisiteproperties786@gmail.com' }}?subject=Private%20Viewing%20Request" class="px-6 py-3 btn-gold rounded-full font-bold">Book Private Viewing Now</a>
                 </div> {% endcomment %}
             </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto mt-8 rounded-2xl border border-gray-100 bg-[#FAF9F6] px-8 py-5 text-center">
+            <p class="text-sm text-gray-600">Peak tourism seasons can significantly enhance rental performance.</p>
         </div>
     </div>
 </section>
@@ -766,7 +776,7 @@
                 <span class="italic text-gray-500">Request your private brochure today.</span>
             </h2>
             <div class="flex flex-col sm:flex-row justify-center gap-6">
-                <a href="#contact" class="px-12 py-4 bg-[#b18b52] text-white text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-gray-900 transition-all duration-500 rounded-sm">
+                <a href="{% url 'harmony:contact' %}" class="px-12 py-4 bg-[#b18b52] text-white text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-gray-900 transition-all duration-500 rounded-sm">
                     Schedule a Viewing
                 </a>
                 <a href="{% url 'harmony:download_brochure' %}" class="px-12 py-4 border border-gray-200 text-gray-900 text-[11px] font-bold uppercase tracking-[0.2em] hover:border-gold transition-all duration-500 rounded-sm">

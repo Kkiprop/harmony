@@ -1,0 +1,106 @@
+{% extends 'harmony/base.html' %}
+
+{% block content %}
+<section class="pt-44 pb-24 bg-[#FAF9F6]">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <p class="uppercase tracking-[0.4em] text-[10px] text-gold font-bold mb-3">Contact Us</p>
+      <h1 class="brand-font text-5xl md:text-6xl font-light text-gray-900">Let's Talk About Your Residence</h1>
+      <p class="text-gray-500 mt-4 max-w-2xl mx-auto">
+        Reach out for floor plans, private viewing schedules, pricing details, and investment guidance.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-0 overflow-hidden rounded-[2rem] bg-white shadow-[0_24px_80px_rgba(0,0,0,0.08)] border border-gray-100">
+      <div class="p-8 md:p-12">
+        <h2 class="brand-font text-4xl font-light text-gray-900 mb-6">Contact Details</h2>
+
+        <div class="space-y-5 mb-10">
+          <div class="rounded-xl bg-[#FAF9F6] border border-gray-100 p-4">
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-1">Phone</p>
+            <a href="tel:{{ project.phone|default:'0727340340' }}" class="text-lg text-gray-900 font-medium">
+              {{ project.phone|default:'0727 340 340' }}
+            </a>
+          </div>
+          <div class="rounded-xl bg-[#FAF9F6] border border-gray-100 p-4">
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-1">Email</p>
+            <a href="mailto:{{ project.email|default:'info@harmony.com' }}" class="text-lg text-gray-900 font-medium break-all">
+              {{ project.email|default:'info@harmony.com' }}
+            </a>
+          </div>
+          <div class="rounded-xl bg-[#FAF9F6] border border-gray-100 p-4">
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-1">Address</p>
+            <p class="text-lg text-gray-900 font-medium">{{ project.address|default:'Nyali, Mombasa, Kenya' }}</p>
+          </div>
+          <div class="rounded-xl bg-[#FAF9F6] border border-gray-100 p-4">
+            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-3">WhatsApp</p>
+            <a href="https://wa.me/254727340340?text=Hello%20Harmony%20Nyali%2C%20I%20would%20like%20more%20information." target="_blank" rel="noreferrer" class="inline-flex items-center gap-3 rounded-full bg-[#25D366] px-5 py-3 text-sm font-bold uppercase tracking-[0.16em] text-white transition-colors hover:bg-[#20b355]">
+              Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <h3 class="brand-font text-3xl font-light text-gray-900 mb-4">Send Enquiry</h3>
+        <form id="contact-whatsapp-form" class="space-y-4" onsubmit="return sendContactWhatsAppMessage(event)">
+          {{ form.non_field_errors }}
+          <div>
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            {{ form.name.errors }}
+          </div>
+          <div>
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+          </div>
+          <div>
+            {{ form.phone.label_tag }}
+            {{ form.phone }}
+            {{ form.phone.errors }}
+          </div>
+          <div>
+            {{ form.message.label_tag }}
+            {{ form.message }}
+            {{ form.message.errors }}
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
+            <button class="px-8 py-3 rounded-full bg-[#25D366] text-white text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-[#20b355] transition-colors" type="submit">
+              Send WhatsApp Message
+            </button>
+            {% comment %} <a href="https://wa.me/254727340340?text=Hello%20Harmony%20Nyali%2C%20I%20would%20like%20more%20information." target="_blank" rel="noreferrer" class="inline-flex items-center justify-center px-8 py-3 rounded-full border border-gray-200 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-900 hover:border-[#25D366] hover:text-[#25D366] transition-colors">
+              Open WhatsApp
+            </a> {% endcomment %}
+          </div>
+        </form>
+      </div>
+
+      <div class="relative min-h-[420px] lg:min-h-full bg-gray-100">
+        <iframe
+          class="absolute inset-0 w-full h-full"
+          src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3979.962348342767!2d39.71821699999999!3d-4.0281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNMKwMDEnNDEuMiJTIDM5wrA0MycwNS42IkU!5e0!3m2!1sen!2ske!4v1777979134662!5m2!1sen!2ske"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function sendContactWhatsAppMessage(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('id_name')?.value || '';
+    const email = document.getElementById('id_email')?.value || '';
+    const phone = document.getElementById('id_phone')?.value || '';
+    const message = document.getElementById('id_message')?.value || '';
+    const whatsappNumber = '254727340340';
+    const whatsappMessage = `Hello Harmony Nyali\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`;
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+    return false;
+  }
+</script>
+{% endblock %}

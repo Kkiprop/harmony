@@ -5,6 +5,7 @@ app_name = 'harmony'
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('contact/', views.contact, name='contact'),
     path('enquire/', views.enquire, name='enquire'),
     path('gallery/', views.gallery_list, name='gallery_list'),
     path('brochure/download/', views.download_brochure, name='download_brochure'),

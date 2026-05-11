@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.static import serve
 from harmony import views as harmony_views
 
 urlpatterns = [
@@ -9,6 +10,9 @@ urlpatterns = [
 
     # custom image route
     path('media/hero.png', harmony_views.hero_image),
+
+    # favicon route - serve from static files
+    path('favicon.ico', serve, {'path': 'logos/harmony_logo.png', 'document_root': settings.STATICFILES_DIRS[0] if settings.STATICFILES_DIRS else settings.STATIC_ROOT}),
 
     # legacy image redirect
     re_path(
