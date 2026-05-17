@@ -122,11 +122,11 @@
 
                 <div class="inline-flex items-center gap-3 mb-6 px-5 py-3 rounded-full bg-gradient-to-r from-[#d4af37] to-[#f4e0a2] text-[#111827] shadow-2xl border border-white/40">
                     <span class="text-[10px] uppercase tracking-[0.28em] font-bold">Located</span>
-                    <span class="brand-font text-3xl md:text-4xl leading-none font-semibold">300m from the beach</span>
+                    <span class="brand-font text-3xl md:text-4xl leading-none font-semibold">300m from the beach with a shuttle service</span>
                 </div>
 
                 <p class="text-[11px] md:text-[12px] uppercase tracking-[0.35em] text-gold-light font-bold mb-5">
-                    2 Bedroom and 3 Bedroom + SQ Residences
+                    House Ready Soon 
                 </p>
 
                 <h2 class="brand-font text-2xl md:text-4xl font-light leading-tight italic mb-8">
@@ -135,7 +135,7 @@
                 </h2>
 
                 <p class="text-base md:text-lg text-gray-300 max-w-xl leading-relaxed font-light mb-12">
-                    Own a premium 2 Bedroom or 3 Bedroom + SQ residence just 300m from the beach. Ocean views, private-block design, and strong short-stay rental potential. Make Harmony a rare Nyali investment with 17% ROI.
+                    Own a premium 2 Bedroom or 3 Bedroom + SQ Apartment just 300m from the beach. Ocean views, private-block design and strong short-stay rental potential. Make Harmony a rare Nyali investment with 17% ROI.
                 </p>
 
                 <div class="flex flex-wrap gap-6 mb-12">
@@ -151,11 +151,10 @@
                     </div>
                     <div class="md:border-r border-white/10 md:px-10">
                         <p class="brand-font text-4xl font-light">{{ project.size_range }}</p>
-                        <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-2">Sq. Metres</p>
+                        <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-2">SQ.M</p>
                     </div>
                     <div class="md:border-r border-white/10 md:px-10">
-                        <p class="brand-font text-4xl font-light">{{ project.ensuite }}</p>
-                        <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-2">Ensuite</p>
+                        <p class="brand-font text-4xl font-light">All Ensuite</p>
                     </div>
                     <div class="md:pl-10">
                         <p class="brand-font text-4xl font-light">{{ project.progress|default:85 }}%</p>
@@ -176,7 +175,7 @@
                         <div>
                             <p class="text-[10px] font-bold uppercase tracking-[0.35em] text-gold">Private Viewing</p>
                             <h3 class="brand-font mt-2 text-3xl font-light text-gray-900 sm:text-4xl">Request a Visit</h3>
-                            <p class="mt-2 max-w-md text-sm text-gray-500">Choose your preferred unit and date, and we will follow up to confirm your viewing.</p>
+                            <p class="mt-2 max-w-md text-sm text-gray-500">Choose your preferred unit and date. We will follow up to confirm your viewing.</p>
                         </div>
                         <button @click="openModal = false" aria-label="Close" class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gray-200 text-xl leading-none text-gray-500 transition-colors hover:border-gray-300 hover:text-gray-900">&times;</button>
                     </div>
@@ -276,7 +275,7 @@
       </p> {% endcomment %}
 
         <p class="mt-6 text-gray-600 leading-8 text-lg font-light">
-            The development offers thoughtfully planned 2 Bedroom residences and larger 3 Bedroom + SQ residences, combining elegant layouts, ensuite comfort, and strong lifestyle appeal in one of Nyali's most sought-after addresses.
+            The development offers thoughtfully planned 2 Bedroom apartments and larger 3 Bedroom + SQ combining elegant layouts, ensuite comfort and strong lifestyle appeal in one of Nyali's most sought-after addresses.
         </p>
     </div>
 
@@ -310,8 +309,8 @@
               <div>
                         <p class="uppercase text-[10px] tracking-[0.4em] text-gold font-bold mb-2">Project Walkthrough</p>
                         <h3 class="brand-font text-4xl font-light">Taking Shape</h3>
-                        <p class="text-gray-600 mt-4">Construction progress: <strong>{{ project.progress|default:'85%' }}% complete (6th floor)</strong>. Expected completion: <strong>Dec 2026</strong>.</p>
-                        <p class="text-gray-600 mt-3">Our delivery follows strict QA protocols, third‑party inspections, and premium finishes — backed by a dedicated property management team to ensure long-term performance.</p>
+                        <p class="text-gray-600 mt-4">Construction progress: <strong>{{ project.progress|default:'85%' }}% complete (6th floor)</strong> <br>Expected completion: <strong>April 2027</strong></p>
+                        <p class="text-gray-600 mt-3">Our delivery follows strict QA protocols, third‑party inspections and premium finishes — backed by a dedicated property management team to ensure long-term performance.</p>
                         <p class="text-gray-600 mt-3">Few units remaining — secure your investment today.</p>
                     </div>
         </div>
@@ -336,17 +335,17 @@
         'two': {
             label: '2 Bedroom',
             subtitle: 'ALL ENSUITE',
-            price: 'From KES 28M',
+            price: 'From KES 19M',
             floorPlan: '{% static 'Harmony_2_bedroom_floor.png' %}',
             beds: '2',
             baths: '2',
             sqm: '146 SQ.M.',
             sqft: '1,572 SQ.FT.',
             features: [
-                'Open plan living & dining', 'Fully fitted kitchen with premium appliances',
+                'Open plan living & dining', 'Fully fitted kitchen with appliances',
                 'Master bedroom with walk-in wardrobe', 'Master ensuite bathroom',
-                'Second bedroom ensuite', 'Spacious patio with views',
-                'Large windows for natural light', 'Air-conditioning throughout'
+                'Second ensuite bedroom ', 'Spacious patio with sea views from 4th floor',
+                'Large windows for natural light', 'Air-conditioning'
             ],
             kitchen: [
                 '4 Burner gas top', 'Hood', 'Single door fridge', 'Microwave', 'Dishwasher', 'Oven', 'Kettle', 'Toaster'
@@ -355,17 +354,17 @@
         'three': {
             label: '3 Bedroom +SQ',
             subtitle: 'ALL ENSUITE + SQ',
-            price: 'From KES 38M',
+            price: 'From KES 30M',
             floorPlan: '{% static 'Harmony_3_bedroom_floor.png' %}',
             beds: '3',
             baths: '4',
             sqm: '235 SQ.M.',
             sqft: '2,530 SQ.FT.',
             features: [
-                'Grand open plan living & dining', 'Fully fitted kitchen with premium appliances',
+                'Grand open plan living & dining', 'Fully fitted kitchen with appliances',
                 'Master bedroom with walk-in wardrobe', 'All bedrooms ensuite',
-                'Staff quarters included', 'Oversized entertainment patio',
-                'Multiple ocean-facing windows', 'Air-conditioning throughout', 'SQ Available'
+                'Staff quarters included', 'Spacious patio with sea views from 4th floor',
+                'Multiple ocean-facing windows', 'Air-conditioning', 'SQ Available'
             ],
             kitchen: [
                 '6 Burner gas top', 'Hood', 'Double door fridge', 'Microwave', 'Dishwasher', 'Oven', 'Kettle', 'Toaster'
@@ -376,10 +375,10 @@
     <div class="container mx-auto px-6">
         
         <div class="text-center mb-16">
-            <p class="uppercase tracking-[0.4em] text-[10px] text-gray-400 mb-4">The Residences</p>
+            <p class="uppercase tracking-[0.4em] text-[10px] text-gray-400 mb-4">The Apartments</p>
             <h2 class="brand-font text-5xl md:text-6xl font-light text-gray-900 leading-tight">
-                Elegant Living.<br>
-                <span class="italic">Thoughtful Space.</span>
+                Elegant Living<br>
+                <span class="italic">Thoughtful Space</span>
             </h2>
             <div class="w-16 h-px bg-gold mx-auto mt-8"></div>
         </div>
@@ -422,13 +421,13 @@
             </div>
 
             <div class="mb-10 text-center space-y-2">
-                <p class="text-xs text-gray-500 italic">Prices apply from 1st Floor.</p>
+                <p class="text-xs text-gray-500 italic">Prices apply from 1st Floor</p>
                 <p class="text-[11px] uppercase tracking-[0.22em] text-[#b45309] font-bold">Limited units available</p>
             </div>
 
             <div class="grid lg:grid-cols-2 gap-8 mb-12">
                 <div class="bg-white rounded-[1.5rem] border border-gray-100 p-6 md:p-8 shadow-sm">
-                    <p class="uppercase tracking-[0.3em] text-[10px] text-gold font-bold mb-3">Residence Features</p>
+                    <p class="uppercase tracking-[0.3em] text-[10px] text-gold font-bold mb-3">Apartment Features</p>
                     <p class="text-[11px] uppercase tracking-[0.2em] text-gray-400 font-bold mb-5" x-text="units[active].subtitle"></p>
                     <div class="grid grid-cols-1 gap-y-3 gap-x-6">
                         <template x-for="feature in units[active].features" :key="feature">
@@ -503,7 +502,7 @@
         </div>
 
         <div class="text-center mt-8">
-            <a href="{% url 'harmony:gallery_list' %}" class="px-8 py-3 btn-premium rounded-full text-sm">View More Gallery</a>
+            <a href="{% url 'harmony:gallery_list' %}" class="px-8 py-3 btn-premium rounded-full text-sm">View More</a>
         </div>
     </div>
 </section>
@@ -614,23 +613,22 @@
         Nyali’s <span class="italic text-gold">Golden Radius</span>
       </h2>
             <div class="w-16 h-px bg-gold/50 mt-8"></div>
-            <p class="mt-4 text-gold font-semibold text-lg">300m from the beach</p>
+            <p class="mt-4 text-gold font-semibold text-lg">300m from the beach with a beach shuttle service</p>
     </div>
 
     <div class="grid lg:grid-cols-3 gap-12">
       
       <div class="space-y-4">
-        <h4 class="text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold mb-8">Daily Convenience</h4>
+        <h4 class="text-[10px] uppercase tracking-[0.3em] font-bold mb-8">Daily Convenience</h4>
         
         <div class="group flex items-center justify-between p-5 rounded-xl bg-white/5 border border-gold/20 hover:bg-gold/10 transition-all">
             <div class="flex items-center gap-4">
                 <i class="ph-thin ph-storefront text-2xl text-gold"></i>
                 <div>
                     <p class="text-sm font-light">Danka Plaza</p>
-                    <p class="text-[9px] text-gray-500 uppercase tracking-tighter">200m Away</p>
                 </div>
             </div>
-            <span class="text-[10px] font-bold text-gold">1 MIN</span>
+            <span class="text-[10px] font-bold text-gold">5 MIN</span>
         </div>
 
         <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all">
@@ -638,7 +636,7 @@
                 <i class="ph-thin ph-shopping-bag text-2xl text-gold"></i>
                 <span class="text-sm font-light">Carrefour</span>
             </div>
-            <span class="text-[10px] font-bold text-gray-500 uppercase">2 MINS</span>
+            <span class="text-[10px] font-bold uppercase">2 MINS</span>
         </div>
 
         <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
@@ -646,27 +644,35 @@
                 <i class="ph-thin ph-buildings text-2xl text-gold"></i>
                 <span class="text-sm font-light">Nyali Centre</span>
             </div>
-            <span class="text-[10px] font-bold text-gray-500 uppercase">3 MINS</span>
+            <span class="text-[10px] font-bold uppercase">3 MINS</span>
         </div>
 
         <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
             <div class="flex items-center gap-4 text-gray-300">
                 <i class="ph-thin ph-basket text-2xl text-gold"></i>
-                <span class="text-sm font-light">City Mall / Quickmart</span>
+                <span class="text-sm font-light">City Mall</span>
             </div>
-            <span class="text-[10px] font-bold text-gray-500 uppercase">4 MINS</span>
+            <span class="text-[10px] font-bold uppercase">4 MINS</span>
+        </div>
+
+        <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
+            <div class="flex items-center gap-4 text-gray-300">
+                <i class="ph-thin ph-basket text-2xl text-gold"></i>
+                <span class="text-sm font-light">Quickmart</span>
+            </div>
+            <span class="text-[10px] font-bold uppercase">4 MINS</span>
         </div>
       </div>
 
       <div class="space-y-4">
-        <h4 class="text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold mb-8">Leisure & Recreation</h4>
+        <h4 class="text-[10px] uppercase tracking-[0.3em] font-bold mb-8">Leisure & Recreation</h4>
         
         <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
             <div class="flex items-center gap-4 text-gray-300">
                 <i class="ph-thin ph-umbrella text-2xl text-gold"></i>
                 <span class="text-sm font-light">Nyali Beach</span>
             </div>
-            <span class="text-[10px] font-bold text-gray-500 uppercase">2 MINS</span>
+            <span class="text-[10px] font-bold uppercase">2 MINS</span>
         </div>
 
         <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
@@ -674,7 +680,7 @@
                 <i class="ph-thin ph-drop text-2xl text-gold"></i>
                 <span class="text-sm font-light">Wild Waters</span>
             </div>
-            <span class="text-[10px] font-bold text-gray-500 uppercase">6 MINS</span>
+            <span class="text-[10px] font-bold uppercase">6 MINS</span>
         </div>
 
         <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
@@ -682,7 +688,7 @@
                 <i class="ph-thin ph-flag-banner text-2xl text-gold"></i>
                 <span class="text-sm font-light">Nyali Golf Club</span>
             </div>
-            <span class="text-[10px] font-bold text-gray-500 uppercase">8 MINS</span>
+            <span class="text-[10px] font-bold uppercase">8 MINS</span>
         </div>
 
         <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
@@ -690,19 +696,19 @@
                 <i class="ph-thin ph-popcorn text-2xl text-gold"></i>
                 <span class="text-sm font-light">Nyali Cinemax</span>
             </div>
-            <span class="text-[10px] font-bold text-gray-500 uppercase">12 MINS</span>
+            <span class="text-[10px] font-bold uppercase">12 MINS</span>
         </div>
       </div>
 
       <div class="space-y-4">
-        <h4 class="text-[10px] uppercase tracking-[0.3em] text-gray-500 font-bold mb-8">Health & Dining</h4>
+        <h4 class="text-[10px] uppercase tracking-[0.3em] font-bold mb-8">Health & Dining</h4>
         
         <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
             <div class="flex items-center gap-4 text-gray-300">
                 <i class="ph-thin ph-first-aid text-2xl text-gold"></i>
                 <span class="text-sm font-light">Nyali Healthcare</span>
             </div>
-            <span class="text-[10px] font-bold text-gray-500 uppercase">1 MIN</span>
+            <span class="text-[10px] font-bold uppercase">1 MIN</span>
         </div>
 
         <div class="flex items-center justify-between p-5 rounded-xl bg-white/[0.02] border border-white/5">
@@ -710,16 +716,16 @@
                 <i class="ph-thin ph-cooking-pot text-2xl text-gold"></i>
                 <span class="text-sm font-light">Yuls Restaurant</span>
             </div>
-            <span class="text-[10px] font-bold text-gray-500 uppercase">14 MINS</span>
+            <span class="text-[10px] font-bold uppercase">14 MINS</span>
         </div>
 
         <div class="mt-8 p-8 rounded-2xl bg-gradient-to-br from-white/[0.05] to-transparent border border-white/10 relative overflow-hidden">
             <i class="ph-thin ph-airplane-tilt absolute -bottom-4 -right-4 text-8xl text-white/[0.03]"></i>
             <p class="text-[10px] uppercase tracking-[0.3em] text-gold font-bold mb-4">Connectivity</p>
             <h5 class="brand-font text-2xl font-light mb-1">Moi International</h5>
-            <p class="text-sm text-gray-500 mb-6 font-light">Global reach at your doorstep</p>
+            <p class="text-sm mb-6 font-light">Global reach at your doorstep</p>
             <div class="flex items-center justify-between">
-                <span class="text-xs text-gray-300 font-light">16 km distance</span>
+                <span class="text-xs font-light">16 km distance</span>
                 <span class="px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold">25 MINS</span>
             </div>
         </div>
@@ -741,7 +747,7 @@
         <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-start">
             <div class="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">
                 <p class="text-sm uppercase tracking-[0.2em] text-gold font-bold mb-3">2 Bedroom</p>
-                <p class="text-3xl font-semibold text-gray-900 mb-6">From KES 28M</p>
+                <p class="text-3xl font-semibold text-gray-900 mb-6">From KES 19M</p>
                 <ul class="space-y-3 text-gray-600">
                     <li><strong>Estimated daily rate:</strong> KES 12,000-24,000 peak</li>
                     <li><strong>Estimated annual return:</strong> 15-18%</li>
@@ -750,7 +756,7 @@
 
             <div class="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">
                 <p class="text-sm uppercase tracking-[0.2em] text-gold font-bold mb-3">3 Bedroom + SQ</p>
-                <p class="text-3xl font-semibold text-gray-900 mb-6">From KES 38M</p>
+                <p class="text-3xl font-semibold text-gray-900 mb-6">From KES 30M</p>
                 <ul class="space-y-3 text-gray-600">
                     <li><strong>Estimated daily rate:</strong> KES 20,000-40,000 peak</li>
                     <li><strong>Estimated annual return:</strong> 18-23%</li>
@@ -837,7 +843,7 @@
                 </div>
 
                 <div class="pt-10 border-t border-gray-100">
-                    <p class="text-sm text-gray-600 mb-3"><strong>Construction:</strong> 6th floor — {{ project.progress }}% complete. Expected completion: Dec 2026.</p>
+                    <p class="text-sm text-gray-600 mb-3"><strong>Construction:</strong> 6th floor — {{ project.progress }}% complete<br> Expected completion: April 2027</p>
                     <div class="flex justify-between items-end mb-4">
                         <div>
                             <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-1">Development Status</p>
@@ -865,7 +871,7 @@
                 <div class="absolute bottom-10 right-10 bg-white/90 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-xl max-w-[240px]">
                     <p class="text-[10px] uppercase tracking-widest text-gold font-bold mb-2">Prime Location</p>
                     <p class="text-sm text-gray-900 font-light leading-relaxed">
-                        Strategically located in the most sought-after residential node of Nyali.
+                        Strategically located in the most sought after residential node of Nyali.
                     </p>
                 </div>
             </div>
